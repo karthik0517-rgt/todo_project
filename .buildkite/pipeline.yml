@@ -1,0 +1,66 @@
+# .buildkite/pipeline.yml
+steps:
+  - label: ":python: Backend Setup and Test"
+    command:
+         - cd backend
+         - ./setup.sh
+         
+  - label: ":python: Backend Linting"
+    command:
+      - cd backend
+      - pip install flake8
+      - flake8 .
+
+  - label: ":python: Backend Tests"
+    command:
+      - cd backend
+      - pip install -r requirements.txt
+      - python manage.py test
+
+  - label: ":node: Frontend Linting"
+    command:
+      - cd frontend
+      - npm install
+      - npm run lint
+
+  - label: ":node: Frontend Tests"
+    command:
+      - cd frontend
+      - npm install
+      - npm test
+
+  - label: ":lock: Security Scan"
+    command:
+      - pip install bandit safety
+      - bandit -r backend -f custom
+      - safety check -r backend/requirements.txt
+      - cd frontend && npm audit
+
+  - label: ":docker: Build and Push Images"
+    command:
+      - docker build -t todo-backend:$BUILDKITE_BUILD_NUMBER backend
+      - docker build -t todo-frontend:$BUILDKITE_BUILD_NUMBER frontend
+      - docker push todo-backend:$BUILDKITE_BUILD_NUMBER
+      - docker push todo-frontend:$BUILDKITE_BUILD_NUMBER
+
+  - wait
+
+  - label: ":kubernetes: Deploy to Minikube"
+    command:
+      - kubectl apply -f k8s/
+      - kubectl set image deployment/todo-backend todo-backend=todo-backend:$BUILDKITE_BUILD_NUMBER
+      - kubectl set image deployment/todo-frontend todo-frontend=todo-frontend:$BUILDKITE_BUILD_NUMBER
+
+  - wait
+
+  - label: ":test_tube: Integration Tests"
+    command:
+      - cd tests
+      - npm install
+      - npm run integration-tests
+
+  - label: ":chart_with_upwards_trend: Performance Tests"
+    command:
+      - cd tests
+      - npm install
+      - npm run performance-tests
