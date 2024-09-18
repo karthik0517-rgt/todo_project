@@ -3,6 +3,7 @@ steps:
   - label: ":python: Backend Setup and Test"
     command:
          - cd backend
+         - chmod +x setup.sh 
          - ./setup.sh
          
   - label: ":python: Backend Linting"
