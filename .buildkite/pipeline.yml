@@ -21,6 +21,7 @@ steps:
   - label: ":node: Frontend CI Setup"
     command:
       - cd frontend
+      - npm ci
       - npm run ci
     artifact_paths:
       - "frontend/node_modules/**/*"
