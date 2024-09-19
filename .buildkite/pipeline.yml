@@ -1,12 +1,15 @@
 # .buildkite/pipeline.yml
 steps:
-  - label: ":python: Backend Setup and Test"
+  - label: ":python: Backend Setup, Lint, and Test"
     command:
-         - cd backend
-         - chmod +x setup.sh 
-         - python3 -m pip uninstall -y -r <(pip freeze)  # Remove all packages
-         - ./setup.sh
-         
+      - cd backend
+      - python3 -m venv venv
+      - source venv/bin/activate
+      - chmod +x setup.sh
+      - ./setup.sh
+      - deactivate
+    env:
+      PYTHONUNBUFFERED: "1"
   # - label: ":python: Backend Linting"
   #   command:
   #     - cd backend
