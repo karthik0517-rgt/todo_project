@@ -17,16 +17,19 @@ steps:
 
   - label: ":node: Frontend Setup and Build"
     command:
-      - chmod +x source-bashrc-and-run.sh
-      - ./source-bashrc-and-run.sh cd frontend && npm install && npm run build
+      - cd frontend
+      - ../source-bashrc-and-run.sh npm install && npm run build
+
 
   - label: ":node: Frontend Linting"
     command:
-      - ./source-bashrc-and-run.sh cd frontend && npm install && npm run lint
+      - cd frontend
+      - ../source-bashrc-and-run.sh npm install && npm run lint
 
   - label: ":node: Frontend Tests"
     command:
-      - ./source-bashrc-and-run.sh cd frontend && npm install && npm test
+      - cd frontend
+      - ../source-bashrc-and-run.sh npm install && npm test
 
   - label: ":lock: Security Scan"
     command:
