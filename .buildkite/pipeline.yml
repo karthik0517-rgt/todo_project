@@ -18,21 +18,13 @@ steps:
   #     - python3 -m pip install flake8
   #     - python3 -m flake8 .
 
-  - label: ":node: Frontend Setup and Build"
+  - label: ":node: Frontend CI Setup"
     command:
       - cd frontend
-      - npm install && npm run build
-
-
-  - label: ":node: Frontend Linting"
-    command:
-      - cd frontend
-      - npm install && npm run lint
-
-  - label: ":node: Frontend Tests"
-    command:
-      - cd frontend
-      - npm install && npm test
+      - npm run ci
+    artifact_paths:
+      - "frontend/node_modules/**/*"
+      - "frontend/build/**/*"
 
   - label: ":lock: Security Scan"
     command:
