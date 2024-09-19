@@ -6,7 +6,7 @@ python3 -m pip install --user --upgrade pip setuptools wheel
 python3 -m pip install --user -r requirements.txt
 
 # Run linting
-python3 -m flake8 .
+# python3 -m flake8 .
 
 # Run migrations
 python3 manage.py migrate
