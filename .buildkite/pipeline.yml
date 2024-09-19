@@ -34,31 +34,39 @@ steps:
       - safety check -r backend/requirements.txt
       # - cd frontend && npm audit
 
-  - label: ":docker: Build and Push Images"
+
+  - label: ":docker: Docker Login"
     command:
-      - docker build -t todo-backend:$BUILDKITE_BUILD_NUMBER backend
-      - docker build -t todo-frontend:$BUILDKITE_BUILD_NUMBER frontend
-      - docker push todo-backend:$BUILDKITE_BUILD_NUMBER
-      - docker push todo-frontend:$BUILDKITE_BUILD_NUMBER
+      - echo $$DOCKER_PASSWORD | docker login -u $$DOCKER_USERNAME --password-stdin
 
-  - wait
+  # - label: ":docker: Build Frontend Image"
+  #   command:
+  #     - cd frontend
+  #     - docker build -t todo-frontend:$BUILDKITE_BUILD_NUMBER .
 
-  - label: ":kubernetes: Deploy to Minikube"
-    command:
-      - kubectl apply -f k8s/
-      - kubectl set image deployment/todo-backend todo-backend=todo-backend:$BUILDKITE_BUILD_NUMBER
-      - kubectl set image deployment/todo-frontend todo-frontend=todo-frontend:$BUILDKITE_BUILD_NUMBER
+  # - label: ":docker: Build Backend Image"
+  #   command:
+  #     - cd backend
+  #     - docker build -t todo-backend:$BUILDKITE_BUILD_NUMBER .
 
-  - wait
+  # - wait
 
-  - label: ":test_tube: Integration Tests"
-    command:
-      - cd tests
-      - npm install
-      - npm run integration-tests
+  # - label: ":kubernetes: Deploy to Minikube"
+  #   command:
+  #     - kubectl apply -f k8s/
+  #     - kubectl set image deployment/todo-backend todo-backend=todo-backend:$BUILDKITE_BUILD_NUMBER
+  #     - kubectl set image deployment/todo-frontend todo-frontend=todo-frontend:$BUILDKITE_BUILD_NUMBER
 
-  - label: ":chart_with_upwards_trend: Performance Tests"
-    command:
-      - cd tests
-      - npm install
-      - npm run performance-tests
+  # - wait
+
+  # - label: ":test_tube: Integration Tests"
+  #   command:
+  #     - cd tests
+  #     - npm install
+  #     - npm run integration-tests
+
+  # - label: ":chart_with_upwards_trend: Performance Tests"
+  #   command:
+  #     - cd tests
+  #     - npm install
+  #     - npm run performance-tests
