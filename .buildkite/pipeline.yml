@@ -17,8 +17,9 @@ steps:
 
   - label: ":node: Frontend Setup and Build"
     command:
-      - npm install
-      - npm run build
+      - chmod +x setup-node.sh
+      - ./setup-node.sh cd frontend && npm install && npm run build
+
 
   - label: ":node: Frontend Linting"
     command:
