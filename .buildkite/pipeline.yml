@@ -18,13 +18,13 @@ steps:
   - label: ":node: Frontend Setup and Build"
     command:
       - cd frontend
+      - chmod +x ./source-bashrc-and-run.sh
       - ./source-bashrc-and-run.sh npm install && npm run build
 
 
   - label: ":node: Frontend Linting"
     command:
       - cd frontend
-      - chmod +x ./source-bashrc-and-run.sh
       - ./source-bashrc-and-run.sh npm install && npm run lint
 
   - label: ":node: Frontend Tests"
