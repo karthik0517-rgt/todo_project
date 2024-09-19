@@ -24,7 +24,7 @@ steps:
       - npm ci
       - npm run ci
     artifact_paths:
-      - "frontend/node_modules/**/*"
+      # - "frontend/node_modules/**/*"
       - "frontend/build/**/*"
 
   - label: ":lock: Security Scan"
