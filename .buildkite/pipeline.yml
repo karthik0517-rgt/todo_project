@@ -30,7 +30,7 @@ steps:
   - label: ":lock: Security Scan"
     command:
       - python3 -m pip install --user bandit safety
-      - bandit -r backend -f custom
+      - bandit -r backend -f custom -c backend/.bandit
       - safety check -r backend/requirements.txt
       - cd frontend && npm audit
 
