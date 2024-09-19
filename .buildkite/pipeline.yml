@@ -21,19 +21,18 @@ steps:
   - label: ":node: Frontend Setup and Build"
     command:
       - cd frontend
-      - npm install
-      - npm run build
+      - npm install && npm run build
 
 
   - label: ":node: Frontend Linting"
     command:
       - cd frontend
-      - ./source-bashrc-and-run.sh npm install && npm run lint
+      - npm install && npm run lint
 
   - label: ":node: Frontend Tests"
     command:
       - cd frontend
-      - ./source-bashrc-and-run.sh npm install && npm test
+      - npm install && npm test
 
   - label: ":lock: Security Scan"
     command:
