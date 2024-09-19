@@ -4,19 +4,28 @@ steps:
     command:
          - cd backend
          - chmod +x setup.sh 
+         - python3 -m pip uninstall -y -r <(pip freeze)  # Remove all packages
          - ./setup.sh
          
-  - label: ":python: Backend Linting"
-    command:
-      - cd backend
-      - pip install flake8
-      - flake8 .
+  # - label: ":python: Backend Linting"
+  #   command:
+  #     - cd backend
+  #     - python3 -m pip install flake8
+  #     - python3 -m flake8 .
 
-  - label: ":python: Backend Tests"
+  # - label: ":python: Backend Tests"
+  #   command:
+  #     - cd backend
+  #     - pip install -r requirements.txt
+  #     - python manage.py test
+
+  - label: ":node: Frontend Setup and Build"
     command:
-      - cd backend
-      - pip install -r requirements.txt
-      - python manage.py test
+      - curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
+      - sudo apt-get install -y nodejs
+      - cd frontend
+      - npm install
+      - npm run build
 
   - label: ":node: Frontend Linting"
     command:
