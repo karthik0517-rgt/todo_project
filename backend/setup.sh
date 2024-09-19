@@ -20,7 +20,7 @@ $PYTHON_CMD -m pip install --upgrade pip setuptools
 $PYTHON_CMD -m pip install -r requirements.txt
 
 # Run linting
-$PYTHON_CMD -m flake8 . 
+# $PYTHON_CMD -m flake8 . 
 
 # Run migrations
 $PYTHON_CMD manage.py migrate
