@@ -20,7 +20,12 @@ $PYTHON_CMD -m pip install -r requirements.txt
 $PYTHON_CMD manage.py migrate
 
 # Collect static files (if applicable)
-$PYTHON_CMD manage.py collectstatic --noinput
+if $PYTHON_CMD manage.py collectstatic --noinput; then
+    echo "Static files collected successfully"
+else
+    echo "Warning: Failed to collect static files. This might be okay for development."
+fi
+
 
 # Run tests
 $PYTHON_CMD manage.py test
