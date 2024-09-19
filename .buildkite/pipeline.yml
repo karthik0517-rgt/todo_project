@@ -1,6 +1,6 @@
 # .buildkite/pipeline.yml
 env:
-  PATH: "/var/lib/buildkite-agent/.nvm/versions/node/v20.17.0/bin:$PATH"
+  PATH: "/var/lib/buildkite-agent/.nvm/versions/node/v20.17.0/bin:/var/lib/buildkite-agent/.local/bin:$PATH"
 
 steps:
   - label: ":python: Backend Setup, Lint, and Test"
@@ -29,7 +29,7 @@ steps:
 
   - label: ":lock: Security Scan"
     command:
-      - pip install bandit safety
+      - python3 -m pip install --user bandit safety
       - bandit -r backend -f custom
       - safety check -r backend/requirements.txt
       - cd frontend && npm audit
