@@ -13,19 +13,24 @@ fi
 
 echo "Using Python command: $PYTHON_CMD"
 
+# Upgrade pip and setuptools
+$PYTHON_CMD -m pip install --upgrade pip setuptools
+
 # Install dependencies
 $PYTHON_CMD -m pip install -r requirements.txt
+
+# Run linting
+$PYTHON_CMD -m flake8 .
 
 # Run migrations
 $PYTHON_CMD manage.py migrate
 
-# Collect static files (if applicable)
+# Collect static files
 if $PYTHON_CMD manage.py collectstatic --noinput; then
     echo "Static files collected successfully"
 else
     echo "Warning: Failed to collect static files. This might be okay for development."
 fi
-
 
 # Run tests
 $PYTHON_CMD manage.py test
