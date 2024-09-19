@@ -2,14 +2,13 @@
 steps:
   - label: ":python: Backend Setup, Lint, and Test"
     command:
-      - cd backend
-      - python3 -m venv venv
-      - source venv/bin/activate
-      - chmod +x setup.sh
-      - ./setup.sh
-      - deactivate
+    - cd backend
+    - chmod +x setup.sh
+    - ./setup.sh
+    
     env:
       PYTHONUNBUFFERED: "1"
+      PATH: "$HOME/.local/bin:$PATH"
   # - label: ":python: Backend Linting"
   #   command:
   #     - cd backend

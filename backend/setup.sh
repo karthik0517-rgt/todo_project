@@ -1,20 +1,18 @@
 #!/bin/bash
 set -e
 
-# Upgrade pip and setuptools
-pip install --upgrade pip setuptools wheel
-
-# Install dependencies
-pip install -r requirements.txt
+# Upgrade pip and install dependencies
+python3 -m pip install --user --upgrade pip setuptools wheel
+python3 -m pip install --user -r requirements.txt
 
 # Run linting
-python -m flake8 .
+python3 -m flake8 .
 
 # Run migrations
-python manage.py migrate
+python3 manage.py migrate
 
 # Collect static files
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 
 # Run tests
-python manage.py test
+python3 manage.py test
