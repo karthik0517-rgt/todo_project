@@ -38,7 +38,7 @@ steps:
   - label: ":docker: Docker Login"
     command:
       # - echo $$DOCKER_PASSWORD | docker login -u $$DOCKER_USERNAME --password-stdin
-       - docker login -u "$(buildkite-agent secret get DOCKER_USERNAME)" -p "$DOCKER_PASSWORD"
+      # - docker login -u "$(buildkite-agent secret get DOCKER_USERNAME)" -p "$DOCKER_PASSWORD"
        - export DOCKER_USERNAME=$(buildkite-agent secret get docker-username)
        # - export DOCKER_PASSWORD=$(buildkite-agent secret get docker-password)
        - echo $DOCKER_USERNAME
