@@ -40,15 +40,16 @@ steps:
        - export DOCKER_USERNAME=$(buildkite-agent secret get DOCKER_USERNAME)
        - export DOCKER_PASSWORD=$(buildkite-agent secret get DOCKER_PASSWORD)
        - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  # - label: ":docker: Build Frontend Image"
-  #   command:
-  #     - cd frontend
-  #     - docker build -t todo-frontend:$BUILDKITE_BUILD_NUMBER .
 
-  # - label: ":docker: Build Backend Image"
-  #   command:
-  #     - cd backend
-  #     - docker build -t todo-backend:$BUILDKITE_BUILD_NUMBER .
+  - label: ":docker: Build Frontend Image"
+    command:
+      - cd frontend
+      - docker build -t todo-frontend:$BUILDKITE_BUILD_NUMBER .
+
+  - label: ":docker: Build Backend Image"
+    command:
+      - cd backend
+      - docker build -t todo-backend:$BUILDKITE_BUILD_NUMBER .
 
   # - wait
 
