@@ -12,7 +12,7 @@ steps:
       PYTHONUNBUFFERED: "1"
       PATH: "$HOME/.local/bin:$PATH"
 
-  # - label: ":python: Backend Linting"
+  # - label: ":python: Backend Linting."
   #   command:
   #     - cd backend
   #     - python3 -m pip install flake8
